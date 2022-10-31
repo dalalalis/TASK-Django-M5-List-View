@@ -1,5 +1,5 @@
 from cgitb import lookup
-from rest_framework.generics import ListAPIView,RetrieveAPIView, UpdateAPIView
+from rest_framework.generics import ListAPIView,RetrieveAPIView, UpdateAPIView, DestroyAPIView
 from .models import Booking, Flight
 from .serializers import FlightListSerializer, BookingListSerializer, BookingDetailSerializer, BookingCreateSerializer
 from .models  import Booking
@@ -24,4 +24,9 @@ class BookingUpdateView(UpdateAPIView):
     serializer_class=BookingCreateSerializer
     lookup_fields='id'
     lookup_url_kwarg='object_id'
-    
+
+class BookingDeleteView(DestroyAPIView): 
+    queryset = Booking.objects.all()
+    serializer_class =BookingListSerializer
+    lookup_field = 'id'
+    lookup_url_kwarg = 'object_id'
