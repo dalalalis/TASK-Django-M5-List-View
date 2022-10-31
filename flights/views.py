@@ -1,6 +1,7 @@
-from rest_framework.generics import ListAPIView
+from cgitb import lookup
+from rest_framework.generics import ListAPIView,RetrieveAPIView, UpdateAPIView
 from .models import Booking, Flight
-from .serializers import FlightListSerializer, BookingListSerializer
+from .serializers import FlightListSerializer, BookingListSerializer, BookingDetailSerializer, BookingCreateSerializer
 from .models  import Booking
 from django.utils import timezone
 
@@ -12,5 +13,15 @@ class BookingListView(ListAPIView):
     queryset = Booking.objects.filter(date__gt=timezone.now())
     serializer_class = BookingListSerializer
 
-    
+class  BookingDetailedView(RetrieveAPIView):
+    queryset=Booking.objects.all()
+    serializer_class= BookingDetailSerializer
+    lookup_field= 'id'
+    lookup_url_kwarg='object_id'
+
+class BookingUpdateView(UpdateAPIView):
+    queryset=Booking.objects.all()
+    serializer_class=BookingCreateSerializer
+    lookup_fields='id'
+    lookup_url_kwarg='object_id'
     
