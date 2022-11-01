@@ -4,6 +4,9 @@ from .models import Booking, Flight
 from .serializers import FlightListSerializer, BookingListSerializer, BookingDetailSerializer, BookingCreateSerializer
 from .models  import Booking
 from django.utils import timezone
+from rest_framework import generics
+from rest_framework.permissions import IsAdminUser
+
 
 class FlightListView(ListAPIView):
     queryset = Flight.objects.all()
@@ -30,3 +33,11 @@ class BookingDeleteView(DestroyAPIView):
     serializer_class =BookingListSerializer
     lookup_field = 'id'
     lookup_url_kwarg = 'object_id'
+
+class BookingListCreateList(generics.ListCreateAPIView):
+    queryset = Booking.objects.all()
+    serializer_class = BookingListSerializer
+    permission_classes = [IsAdminUser]
+
+    #ask if correct 
+    

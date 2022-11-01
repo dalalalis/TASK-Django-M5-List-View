@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from flights.serializers import BookingListSerializer
 from flights.views import BookingDetailedView, BookingUpdateView, FlightListView, BookingListView, BookingDeleteView
+from users.views import  UserCreateAPIview
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -23,4 +26,6 @@ urlpatterns = [
     path("bookings/", BookingListView.as_view(), name='bookings-list'),
     path("detail/<int:object_id>", BookingDetailedView.as_view(), name='booking-details'),
     path("update/<int:object_id>", BookingUpdateView.as_view(), name='update-booking'),
-    path("delete/<int:object_id>", BookingDeleteView.as_view(), name='cancel-booking')]
+    path("delete/<int:object_id>", BookingDeleteView.as_view(), name='cancel-booking'),
+    #path("bookings/", ListCreateApiView.as_view(queryset=Booking.objects.all(),serializer_class=BookingListSerializer, name='bookingslist'))
+    path("register/", UserCreateAPIview.as_view(), name='register')]
