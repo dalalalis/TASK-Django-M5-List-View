@@ -16,16 +16,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from flights.serializers import BookingListSerializer
-from flights.views import BookingDetailedView, BookingUpdateView, FlightListView, BookingListView, BookingDeleteView
-from users.views import  UserCreateAPIview
+from flights.views import BookingDetailedView, BookingUpdateView, FlightListView, BookingListView, BookingDeleteView, BookingCreateAPIview
+from users.views import  UserCreateAPIview, UserLoginAPIview 
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    #works
     path("flights/", FlightListView.as_view(), name='flights-list'),
+    #works
     path("bookings/", BookingListView.as_view(), name='bookings-list'),
-    path("detail/<int:object_id>", BookingDetailedView.as_view(), name='booking-details'),
+    #works
+    path("bookings/add/", BookingCreateAPIview.as_view(), name='create-booking'),
+    path("detail/<int:booking_id>",BookingDetailedView.as_view(), name='booking-details'),
     path("update/<int:object_id>", BookingUpdateView.as_view(), name='update-booking'),
     path("delete/<int:object_id>", BookingDeleteView.as_view(), name='cancel-booking'),
-    #path("bookings/", ListCreateApiView.as_view(queryset=Booking.objects.all(),serializer_class=BookingListSerializer, name='bookingslist'))
-    path("register/", UserCreateAPIview.as_view(), name='register')]
+    path("register/", UserCreateAPIview.as_view(), name='register'),
+    #works
+    path("login/", UserLoginAPIview.as_view(), name='login')]
+    #works
